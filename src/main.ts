@@ -26,8 +26,7 @@ export default class CreatureStatBlockPlugin extends Plugin {
         // Register the post-processor to recognize `sblock`
         this.registerMarkdownCodeBlockProcessor("sblock", (source, el, ctx) => {
             console.log("It WORKS!");
-            // Get all the code blocksconst values = this.parseSource(source);
-            this.renderCreatureStatBlock(el);
+            this.renderCreatureStatBlock(source, el);
         });
 
 
@@ -41,11 +40,10 @@ export default class CreatureStatBlockPlugin extends Plugin {
     }
 
     // Function to parse and render the stat block
-    renderCreatureStatBlock(block: HTMLElement) {
+    renderCreatureStatBlock(source: string, el: HTMLElement) {
         try {
-            // Remove "sblock" and parse the YAML content
-            const yamlContent = block.innerText.replace("sblock", "").trim();
-            const data = this.parseYAML(yamlContent);
+            // Parse the YAML content
+            const data = this.parseYAML(source);
 
             // Create the layout
             const container = document.createElement("div");
@@ -94,7 +92,7 @@ export default class CreatureStatBlockPlugin extends Plugin {
             container.appendChild(rightColumn);
 
             // Replace the original code block with the new layout
-            block.replaceWith(container);
+            el.replaceWith(container);
         } catch (error) {
             console.error("Error rendering stat block:", error);
         }

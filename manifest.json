@@ -1,0 +1,10 @@
+{
+    "id": "creature-stat-block-2024",
+    "name": "Creature Stat Block",
+    "version": "1.0.0",
+    "minAppVersion": "0.12.0",
+    "description": "Render creature stat blocks followig the Monster Manual 2024.",
+    "author": "LittleOwl",
+    "authorUrl": "https://github.com/FioPio",
+    "isDesktopOnly": false
+}

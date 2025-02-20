@@ -1,0 +1,23 @@
+.creature-stat-block {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.left-column,
+.right-column {
+    width: 48%;
+}
+
+h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    border-bottom: 1px solid #ccc;
+}
+
+p {
+    margin: 0.25rem 0;
+}

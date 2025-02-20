@@ -54,6 +54,13 @@ creatureType {
     font-style: italic;
 }
 
+blackBoldText {
+    margin: 0 0 16px 0;
+    font-size: 1rem;
+    color: #000000;
+    font-weight: bold;
+}
+
 /* Paragraphs */
 p {
     margin: 0.25rem 0;

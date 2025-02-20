@@ -5,10 +5,10 @@ interface StatBlockData {
     name: string;
     creature_type: string;
     alignment: string;
-    ac: string;
+    ac: number;
     speed: string;
-    scores: string[];
-    skills: { [key: string]: string }[];
+    scores: number[];
+    skills: { [key: string]: number }[];
     gear: string[];
     senses: string;
     Languages: string;
@@ -60,25 +60,44 @@ export default class CreatureStatBlockPlugin extends Plugin {
             // Left Column (Basic Stats)
             const leftColumn = document.createElement("div");
             leftColumn.classList.add("left-column");
-            var text = "";
-
+            var textLeftColumn = "";
+            // Data Ceatre and alignment
             if (data.creature_type) {
-                text += `<creatureType>${data.creature_type}`;
+                textLeftColumn += `<creatureType>${data.creature_type}`;
                 if (data.alignment) {
-                    text += `, ${data.alignment}</creatureType>`;
+                    textLeftColumn += `, ${data.alignment}</creatureType>`;
                 }
                 else {
-                    text += `</creatureType>`;
+                    textLeftColumn += `</creatureType>`;
                 }
             }
             else if (data.alignment) {
-                text += `<creatureType>${data.alignment}</creatureType>`;
+                textLeftColumn += `<creatureType>${data.alignment}</creatureType>`;
             }
+            var ac = 10;
+            const str_score = data.scores[0] ? data.scores[0] : 10;
+            const dex_score = data.scores[1] ? data.scores[1] : 10;
+            const con_score = data.scores[2] ? data.scores[2] : 10;
+            const int_score = data.scores[3] ? data.scores[3] : 10;
+            const wis_score = data.scores[4] ? data.scores[4] : 10;
+            const cha_score = data.scores[5] ? data.scores[5] : 10;
 
 
+            const score_modifiers: number[] =
+                data.scores ?
+                    data.scores.map((num) => Math.trunc((num - 10) / 2)) :
+                    [0, 0, 0, 0, 0, 0];
+            {
+                var initiative = score_modifiers[1];
+                // AC + INITIATIVE
+                if (data.ac) {
+                    ac = data.ac;
+                }
+                const symbol_ini = initiative >= 0 ? "+" : "";
+                textLeftColumn += `<blackBoldText>AC <blackBoldText><p>${ac}    </p><blackBoldText>Initiative </blackBoldText><p>${symbol_ini}${initiative} (${dex_score})</p>\n`;
+            }
             // Append all the basic stats
-            text += `
-        <h4>AC</h4><p>${data.ac}</p>
+            textLeftColumn += `
         <h4>Speed</h4><p>${data.speed}</p>
         <h4>Scores</h4><p>${data.scores.join(", ")}</p>
         <h4>Skills</h4><p>${this.formatSkills(data.skills)}</p>
@@ -88,7 +107,7 @@ export default class CreatureStatBlockPlugin extends Plugin {
         <h4>CR</h4><p>${data.cr}</p>
       `;
 
-            leftColumn.innerHTML = text;
+            leftColumn.innerHTML = textLeftColumn;
 
             // Right Column (Actions)
             const rightColumn = document.createElement("div");
@@ -134,8 +153,8 @@ export default class CreatureStatBlockPlugin extends Plugin {
         return yaml.load(content) as StatBlockData;
     }
 
-    formatSkills(skills: { [key: string]: string }[]): string {
-        return skills.map((skill: { [key: string]: string }) => `${Object.keys(skill)[0]}: ${Object.values(skill)[0]}`).join(", ");
+    formatSkills(skills: { [key: string]: number }[]): string {
+        return skills.map((skill: { [key: string]: number }) => `${Object.keys(skill)[0]}: ${Object.values(skill)[0]}`).join(", ");
     }
 
     formatGear(gear: string[]): string {

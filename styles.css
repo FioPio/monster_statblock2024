@@ -1,49 +1,60 @@
+/* Outer container */
 .creature-stat-block-outer {
-    /*display: flex;
-    justify-content: space-between;*/
     padding: 5px;
-    /*1rem;*/
     border: 2px solid #706d39;
-    /*#ccc*/
     border-radius: 8px;
     background-color: #f9f9f9;
 }
 
+/* Inner container */
 .creature-stat-block-inner {
-    /*display: flex;
-    justify-content: space-between;*/
-    padding: 10px;
-    /*1rem;*/
+    padding: 7px;
     border: 2px solid #706d39;
-    ;
     border-radius: 8px;
     background-color: #f9f9f9;
 }
 
-.creature-stat-block {
+/* Name section */
+.creature-stat-block-inner h1 {
+    margin: 0 0 16px 0;
+    /* Add spacing below the name */
+    font-size: 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid #733721;
+    color: #bb1a1a;
+    text-transform: uppercase;
+}
+
+/* Content container (for the two columns) */
+.creature-stat-block-content {
     display: flex;
     justify-content: space-between;
-    background-color: #f9f9f9;
+    gap: 16px;
+    /* Add spacing between columns */
 }
 
-
+/* Left and right columns */
 .left-column,
 .right-column {
     width: 48%;
+    /* Adjust width to fit side by side */
 }
 
-h1 {
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    border-bottom: 1px solid #9f0d0d;
-}
-
+/* Headings */
 h4 {
-    margin-bottom: 0.5rem;
+    margin: 0 0 8px 0;
     font-size: 1rem;
     border-bottom: 1px solid #ccc;
 }
 
+creatureType {
+    margin: 0 0 16px 0;
+    font-size: 1rem;
+    color: #434343;
+    font-style: italic;
+}
+
+/* Paragraphs */
 p {
     margin: 0.25rem 0;
 }

@@ -38,34 +38,46 @@ export default class CreatureStatBlockPlugin extends Plugin {
             // Parse the YAML content
             const data = this.parseYAML(source);
 
-            // Create the layout
+            // Create the outer container
             const outerContainer = document.createElement("div");
             outerContainer.classList.add("creature-stat-block-outer");
+
             // Create the inner container
             const innerContainer = document.createElement("div");
             innerContainer.classList.add("creature-stat-block-inner");
 
-            // Create the Statblock itself
-            const container = document.createElement("div");
-            innerContainer.classList.add("creature-stat-block");
-
-            // If name:
+            // Add the creature name
             if (data.name) {
                 const name = document.createElement("h1");
-                name.innerHTML = data.name;
+                name.innerText = data.name;
                 innerContainer.appendChild(name);
             }
+
+            // Create the content container (for the two columns)
+            const contentContainer = document.createElement("div");
+            contentContainer.classList.add("creature-stat-block-content");
 
             // Left Column (Basic Stats)
             const leftColumn = document.createElement("div");
             leftColumn.classList.add("left-column");
+            var text = "";
 
+            if (data.creature_type) {
+                text += `<creatureType>${data.creature_type}`;
+                if (data.alignment) {
+                    text += `, ${data.alignment}</creatureType>`;
+                }
+                else {
+                    text += `</creatureType>`;
+                }
+            }
+            else if (data.alignment) {
+                text += `<creatureType>${data.alignment}</creatureType>`;
+            }
 
 
             // Append all the basic stats
-            leftColumn.innerHTML = `
-        <h4>Creature Type</h4><p>${data.creature_type}</p>
-        <h4>Alignment</h4><p>${data.alignment}</p>
+            text += `
         <h4>AC</h4><p>${data.ac}</p>
         <h4>Speed</h4><p>${data.speed}</p>
         <h4>Scores</h4><p>${data.scores.join(", ")}</p>
@@ -75,6 +87,8 @@ export default class CreatureStatBlockPlugin extends Plugin {
         <h4>Languages</h4><p>${data.Languages}</p>
         <h4>CR</h4><p>${data.cr}</p>
       `;
+
+            leftColumn.innerHTML = text;
 
             // Right Column (Actions)
             const rightColumn = document.createElement("div");
@@ -96,16 +110,21 @@ export default class CreatureStatBlockPlugin extends Plugin {
 
             rightColumn.innerHTML = actionsHTML;
 
-            // Append columns to container
-            container.appendChild(leftColumn);
-            container.appendChild(rightColumn);
-            innerContainer.appendChild(container);
+            // Append columns to the content container
+            contentContainer.appendChild(leftColumn);
+            contentContainer.appendChild(rightColumn);
 
-            // Append inner container to outer container
+            // Append the content container to the inner container
+            innerContainer.appendChild(contentContainer);
+
+            // Append the inner container to the outer container
             outerContainer.appendChild(innerContainer);
 
             // Replace the original code block with the new layout
             el.replaceWith(outerContainer);
+
+            // Debug: Log the generated HTML
+            console.log("Generated HTML:", outerContainer.outerHTML);
         } catch (error) {
             console.error("Error rendering stat block:", error);
         }

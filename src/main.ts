@@ -109,14 +109,13 @@ export default class CreatureStatBlockPlugin extends Plugin {
                 textLeftColumn += `<div class="aligned-div"><blackBoldText>Speed </blackBoldText><p>${data.speed}</p></div>`;
             }
             // Table container
-            textLeftColumn += `<div class="tables-container">`;
-
-            // Table 1: Scores
-            textLeftColumn += `
-    <table class="stats-table-1">
+            textLeftColumn += `<div><table class="stats-table">
         <thead>
             <tr>
-                <th colspan="4">Ability Scores</th>
+                <td class="title-th"> </td>
+                <td class="title-th"> </td>
+                <td class="title-th"><blackBoldText>MOD</blackBoldText></td>
+                <td class="title-th"><blackBoldText>SAVE</blackBoldText></td>
             </tr>
         </thead>
         <tbody>
@@ -138,42 +137,28 @@ export default class CreatureStatBlockPlugin extends Plugin {
                 <td class="column_2"> ${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
                 <td class="column_2"> ${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
             </tr>
-        </tbody>
-    </table>
-`;
-
-            // Table 2: Skills
-            textLeftColumn += `
-    <table class="stats-table-2">
-        <thead>
             <tr>
-                <th colspan="2">Skills</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="column_3"><blackBoldText>INT</blackBoldText></td>
-                <td class="column_3"> ${int_score}</td>
+                <td class="column_1"><blackBoldText>INT</blackBoldText></td>
+                <td class="column_1"> ${int_score}</td>
                 <td class="column_2"> ${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
                 <td class="column_2"> ${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
             </tr>
             <tr>
-                <td class="column_3"><blackBoldText>WIS</blackBoldText></td>
-                <td class="column_3"> ${dex_score}</td>
+                <td class="column_1"><blackBoldText>WIS</blackBoldText></td>
+                <td class="column_1"> ${dex_score}</td>
                 <td class="column_2"> ${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
                 <td class="column_2"> ${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
             </tr>
             <tr>
-                <td class="column_3"><blackBoldText>CHA</blackBoldText></td>
-                <td class="column_3"> ${con_score}</td>
+                <td class="column_1"><blackBoldText>CHA</blackBoldText></td>
+                <td class="column_1"> ${con_score}</td>
                 <td class="column_2"> ${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
                 <td class="column_2"> ${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
             </tr>
         </tbody>
     </table>
+</div>
 `;
-            // Close the tables container
-            textLeftColumn += `</div>`;
 
             // Append all the basic stats
             textLeftColumn += `

@@ -47,6 +47,9 @@ export default class CreatureStatBlockPlugin extends Plugin {
             const wis_score = data.scores[4] ? data.scores[4] : 10;
             const cha_score = data.scores[5] ? data.scores[5] : 10;
 
+            // TODO: ADD LOGIC TO GET THE RIGHT PROFICIENCY BONUS
+            var prof_mod = 2;
+
             const score_modifiers: number[] =
                 data.scores ?
                     data.scores.map((num) => Math.trunc((num - 10) / 2)) :
@@ -89,7 +92,6 @@ export default class CreatureStatBlockPlugin extends Plugin {
                 textLeftColumn += `<creatureType>${data.alignment}</creatureType></div>`;
             }
 
-
             {
                 var ac = 10;
                 var initiative = score_modifiers[1];
@@ -106,6 +108,72 @@ export default class CreatureStatBlockPlugin extends Plugin {
             if (data.speed) {
                 textLeftColumn += `<div class="aligned-div"><blackBoldText>Speed </blackBoldText><p>${data.speed}</p></div>`;
             }
+            // Table container
+            textLeftColumn += `<div class="tables-container">`;
+
+            // Table 1: Scores
+            textLeftColumn += `
+    <table class="stats-table-1">
+        <thead>
+            <tr>
+                <th colspan="4">Ability Scores</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="column_1"><blackBoldText>STR</blackBoldText></td>
+                <td class="column_1"> ${str_score}</td>
+                <td class="column_2"> ${score_modifiers[0] >= 0 ? "+" : ""}${score_modifiers[0]}</td>
+                <td class="column_2"> ${score_modifiers[0] >= 0 ? "+" : ""}${score_modifiers[0]}</td>
+            </tr>
+            <tr>
+                <td class="column_1"><blackBoldText>DEX</blackBoldText></td>
+                <td class="column_1"> ${dex_score}</td>
+                <td class="column_2"> ${score_modifiers[1] >= 0 ? "+" : ""}${score_modifiers[1]}</td>
+                <td class="column_2"> ${score_modifiers[1] >= 0 ? "+" : ""}${score_modifiers[1]}</td>
+            </tr>
+            <tr>
+                <td class="column_1"><blackBoldText>CON</blackBoldText></td>
+                <td class="column_1"> ${con_score}</td>
+                <td class="column_2"> ${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
+                <td class="column_2"> ${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
+            </tr>
+        </tbody>
+    </table>
+`;
+
+            // Table 2: Skills
+            textLeftColumn += `
+    <table class="stats-table-2">
+        <thead>
+            <tr>
+                <th colspan="2">Skills</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="column_3"><blackBoldText>INT</blackBoldText></td>
+                <td class="column_3"> ${int_score}</td>
+                <td class="column_2"> ${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
+                <td class="column_2"> ${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
+            </tr>
+            <tr>
+                <td class="column_3"><blackBoldText>WIS</blackBoldText></td>
+                <td class="column_3"> ${dex_score}</td>
+                <td class="column_2"> ${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
+                <td class="column_2"> ${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
+            </tr>
+            <tr>
+                <td class="column_3"><blackBoldText>CHA</blackBoldText></td>
+                <td class="column_3"> ${con_score}</td>
+                <td class="column_2"> ${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
+                <td class="column_2"> ${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
+            </tr>
+        </tbody>
+    </table>
+`;
+            // Close the tables container
+            textLeftColumn += `</div>`;
 
             // Append all the basic stats
             textLeftColumn += `

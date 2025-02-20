@@ -76,3 +76,58 @@ p {
     margin: 0 25px 0 0;
     color: #000000;
 }
+
+
+
+/* Tables Container */
+.tables-container {
+    display: flex;
+    gap: 16px;
+    /* Add spacing between the tables */
+    margin-bottom: 16px;
+    /* Add spacing below the tables */
+}
+
+/* Stats Table */
+.stats-table {
+    width: 48%;
+    /* Each table takes up half the container width */
+    border-collapse: collapse;
+    /* Remove spacing between table cells */
+    background-color: #fff;
+    /* White background */
+    border: 1px solid #ccc;
+    /* Add a border */
+}
+
+.stats-table th {
+    background-color: #f0f0f0;
+    /* Light gray background for headers */
+    font-weight: bold;
+    /* Bold text for headers */
+}
+
+.column_1 {
+    background-color: #c9cba1;
+    color: #000000;
+}
+
+.stats-table-1 .column_1 {
+    background-color: #c9cba1;
+    color: #000000;
+}
+
+.stats-table-1 .column_2 {
+    background-color: #887b68;
+    color: #000000;
+}
+
+.stats-table-2 .column_2 {
+    background-color: #887b68;
+    color: #000000;
+}
+
+.stats-table-2 .column_3 {
+    background-color: #688868;
+    color: #000000;
+}

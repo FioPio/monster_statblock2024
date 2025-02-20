@@ -30,14 +30,12 @@
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    /* Add spacing between columns */
 }
 
 /* Left and right columns */
 .left-column,
 .right-column {
     width: 48%;
-    /* Adjust width to fit side by side */
 }
 
 /* Headings */
@@ -47,15 +45,27 @@ h4 {
     border-bottom: 1px solid #ccc;
 }
 
+.ac-initiative {
+    display: flex;
+
+    align-items: center;
+}
+
+.aligned-div {
+    display: flex;
+    margin-top: -20px;
+    align-items: center;
+}
+
 creatureType {
-    margin: 0 0 16px 0;
+    margin: 0 0 25px 0;
     font-size: 1rem;
     color: #434343;
     font-style: italic;
 }
 
 blackBoldText {
-    margin: 0 0 16px 0;
+    margin: 0 6px 0 6px;
     font-size: 1rem;
     color: #000000;
     font-weight: bold;
@@ -63,5 +73,6 @@ blackBoldText {
 
 /* Paragraphs */
 p {
-    margin: 0.25rem 0;
+    margin: 0 25px 0 0;
+    color: #000000;
 }

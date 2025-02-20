@@ -11,10 +11,11 @@ interface StatBlockData {
     skills: { [key: string]: number }[];
     gear: string[];
     senses: string;
-    Languages: string;
+    languages: string;
     cr: string;
     actions: { name: string; desc: string }[];
     bonus_actions?: { name: string; desc: string }[];
+    hp: string;
 }
 
 
@@ -37,6 +38,19 @@ export default class CreatureStatBlockPlugin extends Plugin {
         try {
             // Parse the YAML content
             const data = this.parseYAML(source);
+
+            // Get the scores and modifiers
+            const str_score = data.scores[0] ? data.scores[0] : 10;
+            const dex_score = data.scores[1] ? data.scores[1] : 10;
+            const con_score = data.scores[2] ? data.scores[2] : 10;
+            const int_score = data.scores[3] ? data.scores[3] : 10;
+            const wis_score = data.scores[4] ? data.scores[4] : 10;
+            const cha_score = data.scores[5] ? data.scores[5] : 10;
+
+            const score_modifiers: number[] =
+                data.scores ?
+                    data.scores.map((num) => Math.trunc((num - 10) / 2)) :
+                    [0, 0, 0, 0, 0, 0];
 
             // Create the outer container
             const outerContainer = document.createElement("div");
@@ -63,47 +77,43 @@ export default class CreatureStatBlockPlugin extends Plugin {
             var textLeftColumn = "";
             // Data Ceatre and alignment
             if (data.creature_type) {
-                textLeftColumn += `<creatureType>${data.creature_type}`;
+                textLeftColumn += `<div><creatureType>${data.creature_type}`;
                 if (data.alignment) {
-                    textLeftColumn += `, ${data.alignment}</creatureType>`;
+                    textLeftColumn += `, ${data.alignment}</creatureType></div>`;
                 }
                 else {
-                    textLeftColumn += `</creatureType>`;
+                    textLeftColumn += `</creatureType></div>`;
                 }
             }
             else if (data.alignment) {
-                textLeftColumn += `<creatureType>${data.alignment}</creatureType>`;
+                textLeftColumn += `<creatureType>${data.alignment}</creatureType></div>`;
             }
-            var ac = 10;
-            const str_score = data.scores[0] ? data.scores[0] : 10;
-            const dex_score = data.scores[1] ? data.scores[1] : 10;
-            const con_score = data.scores[2] ? data.scores[2] : 10;
-            const int_score = data.scores[3] ? data.scores[3] : 10;
-            const wis_score = data.scores[4] ? data.scores[4] : 10;
-            const cha_score = data.scores[5] ? data.scores[5] : 10;
 
 
-            const score_modifiers: number[] =
-                data.scores ?
-                    data.scores.map((num) => Math.trunc((num - 10) / 2)) :
-                    [0, 0, 0, 0, 0, 0];
             {
+                var ac = 10;
                 var initiative = score_modifiers[1];
                 // AC + INITIATIVE
                 if (data.ac) {
                     ac = data.ac;
                 }
                 const symbol_ini = initiative >= 0 ? "+" : "";
-                textLeftColumn += `<blackBoldText>AC <blackBoldText><p>${ac}    </p><blackBoldText>Initiative </blackBoldText><p>${symbol_ini}${initiative} (${dex_score})</p>\n`;
+                textLeftColumn += `<div class="ac-initiative"><blackBoldText>AC </blackBoldText><p>${ac}    </p><blackBoldText>Initiative </blackBoldText><p>${symbol_ini}${initiative} (${10 + initiative})</p></div>`;
             }
+            if (data.hp) {
+                textLeftColumn += `<div class="aligned-div"><blackBoldText>HP </blackBoldText><p>${data.hp}</p></div>`;
+            }
+            if (data.speed) {
+                textLeftColumn += `<div class="aligned-div"><blackBoldText>Speed </blackBoldText><p>${data.speed}</p></div>`;
+            }
+
             // Append all the basic stats
             textLeftColumn += `
-        <h4>Speed</h4><p>${data.speed}</p>
         <h4>Scores</h4><p>${data.scores.join(", ")}</p>
         <h4>Skills</h4><p>${this.formatSkills(data.skills)}</p>
         <h4>Gear</h4><p>${this.formatGear(data.gear)}</p>
         <h4>Senses</h4><p>${data.senses}</p>
-        <h4>Languages</h4><p>${data.Languages}</p>
+        <h4>Languages</h4><p>${data.languages}</p>
         <h4>CR</h4><p>${data.cr}</p>
       `;
 

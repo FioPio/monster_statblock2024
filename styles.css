@@ -1,17 +1,17 @@
 /* Outer container */
 .creature-stat-block-outer {
     padding: 5px;
-    border: 2px solid #706d39;
+    border: 2px solid #706d39 !important;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9 !important;
 }
 
 /* Inner container */
 .creature-stat-block-inner {
     padding: 7px;
-    border: 2px solid #706d39;
+    border: 2px solid #706d39 !important;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9 !important;
 }
 
 /* Name section */
@@ -20,8 +20,8 @@
     /* Add spacing below the name */
     font-size: 1.5rem;
     text-align: left;
-    border-bottom: 1px solid #733721;
-    color: #bb1a1a;
+    border-bottom: 1px solid #733721 !important;
+    color: #bb1a1a !important;
     text-transform: uppercase;
 }
 
@@ -63,21 +63,21 @@ h4 {
 .creature-type {
     margin: 0 0 25px 0;
     font-size: 1rem;
-    color: #434343;
+    color: #434343 !important;
     font-style: italic;
 }
 
 .black-bold-text {
     margin: 0 6px 0 6px;
     font-size: 1rem;
-    color: #000000;
+    color: #000000 !important;
     font-weight: bold;
 }
 
 /* Paragraphs */
 p {
     margin: 0 25px 0 0;
-    color: #000000;
+    color: #000000 !important;
 }
 
 
@@ -103,27 +103,21 @@ p {
 
 
 .stats-table .title-th {
-    background-color: transparent;
-    border: none;
+    background-color: #f9f9f9 !important;
+    border: none !important;
     font-weight: bold;
     text-align: center;
+    border: 1px solid #f9f9f9 !important
 }
 
 
 .two-column-layout {
     column-count: 2;
-
     column-gap: 20px;
-
     break-inside: avoid;
-
     width: 100%;
-
     overflow: hidden;
-
     padding: 10px;
-
     box-sizing: border-box;
-
     display: block;
 }

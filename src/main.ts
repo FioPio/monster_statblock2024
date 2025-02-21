@@ -19,6 +19,54 @@ interface StatBlockData {
     hp: string;
 }
 
+// CR DATA
+interface CrData {
+    xp: number;
+    prof_bonus: number;
+}
+
+// Define the primary dictionary with `cr` as the key
+type CrDictionary = {
+    [cr: string]: CrData;
+};
+
+// Example usage:
+const crDictionary: CrDictionary = {
+    "0": { xp: 10, prof_bonus: 2 },
+    "1/8": { xp: 25, prof_bonus: 2 },
+    "1/4": { xp: 50, prof_bonus: 2 },
+    "1/2": { xp: 100, prof_bonus: 2 },
+    "1": { xp: 200, prof_bonus: 2 },
+    "2": { xp: 450, prof_bonus: 2 },
+    "3": { xp: 700, prof_bonus: 2 },
+    "4": { xp: 1100, prof_bonus: 2 },
+    "5": { xp: 1800, prof_bonus: 3 },
+    "6": { xp: 2300, prof_bonus: 3 },
+    "7": { xp: 2900, prof_bonus: 3 },
+    "8": { xp: 3900, prof_bonus: 3 },
+    "9": { xp: 5000, prof_bonus: 4 },
+    "10": { xp: 5900, prof_bonus: 4 },
+    "11": { xp: 7200, prof_bonus: 4 },
+    "12": { xp: 8400, prof_bonus: 4 },
+    "13": { xp: 10000, prof_bonus: 5 },
+    "14": { xp: 11500, prof_bonus: 5 },
+    "15": { xp: 13000, prof_bonus: 5 },
+    "16": { xp: 15000, prof_bonus: 5 },
+    "17": { xp: 18000, prof_bonus: 6 },
+    "18": { xp: 20000, prof_bonus: 6 },
+    "19": { xp: 22000, prof_bonus: 6 },
+    "20": { xp: 25000, prof_bonus: 6 },
+    "21": { xp: 33000, prof_bonus: 7 },
+    "22": { xp: 41000, prof_bonus: 7 },
+    "23": { xp: 50000, prof_bonus: 7 },
+    "24": { xp: 62000, prof_bonus: 7 },
+    "25": { xp: 75000, prof_bonus: 8 },
+    "26": { xp: 90000, prof_bonus: 8 },
+    "27": { xp: 105000, prof_bonus: 8 },
+    "28": { xp: 120000, prof_bonus: 8 },
+    "29": { xp: 135000, prof_bonus: 9 },
+    "30": { xp: 155000, prof_bonus: 9 },
+};
 
 export default class CreatureStatBlockPlugin extends Plugin {
 
@@ -49,7 +97,7 @@ export default class CreatureStatBlockPlugin extends Plugin {
             const cha_score = data.scores[5] ? data.scores[5] : 10;
 
             // TODO: ADD LOGIC TO GET THE RIGHT PROFICIENCY BONUS
-            var prof_mod = 2;
+            var prof_mod = data.cr ? crDictionary[data.cr].prof_bonus : 2;
 
             const score_modifiers: number[] =
                 data.scores ?
@@ -57,23 +105,25 @@ export default class CreatureStatBlockPlugin extends Plugin {
                     [0, 0, 0, 0, 0, 0];
 
             var saves = [0, 0, 0, 0, 0, 0];
-            if (data.saves.includes("str")) {
-                saves[0] = prof_mod;
-            }
-            if (data.saves.includes("dex")) {
-                saves[1] = prof_mod;
-            }
-            if (data.saves.includes("con")) {
-                saves[2] = prof_mod;
-            }
-            if (data.saves.includes("int")) {
-                saves[3] = prof_mod;
-            }
-            if (data.saves.includes("wis")) {
-                saves[4] = prof_mod;
-            }
-            if (data.saves.includes("cha")) {
-                saves[5] = prof_mod;
+            if (data.saves) {
+                if (data.saves.includes("str")) {
+                    saves[0] = prof_mod;
+                }
+                if (data.saves.includes("dex")) {
+                    saves[1] = prof_mod;
+                }
+                if (data.saves.includes("con")) {
+                    saves[2] = prof_mod;
+                }
+                if (data.saves.includes("int")) {
+                    saves[3] = prof_mod;
+                }
+                if (data.saves.includes("wis")) {
+                    saves[4] = prof_mod;
+                }
+                if (data.saves.includes("cha")) {
+                    saves[5] = prof_mod;
+                }
             }
 
             // Create the outer container
@@ -127,7 +177,7 @@ export default class CreatureStatBlockPlugin extends Plugin {
                 textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">HP </spawn><p>${data.hp}</p></div>`;
             }
             if (data.speed) {
-                textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">Speed </spawn><p>${data.speed}</p></div>`;
+                textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">Speed </spawn><p>${AddLinks(data.speed)}</p></div>`;
             }
             // Table container
             // Table HTML
@@ -182,15 +232,22 @@ export default class CreatureStatBlockPlugin extends Plugin {
         </tbody>
     </table>
 </div>`;
-
-            // Append all the basic stats
-            textLeftColumn += `
-        <h4>Skills</h4><p>${this.formatSkills(data.skills)}</p>
-        <h4>Gear</h4><p>${this.formatGear(data.gear)}</p>
-        <h4>Senses</h4><p>${data.senses}</p>
-        <h4>Languages</h4><p>${data.languages}</p>
-        <h4>CR</h4><p>${data.cr}</p>
-      `;
+            // Skills
+            if (data.skills) {
+                textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">Skills </spawn><p>${AddLinks(this.formatSkills(data.skills))}</p></div>`;
+            }
+            if (data.gear) {
+                textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">Gear </spawn><p>${AddLinks(this.formatGear(data.gear))}</p></div>`;
+            }
+            if (data.senses) {
+                textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">Senses </spawn><p>${AddLinks(data.senses)}</p></div>`;
+            }
+            if (data.languages) {
+                textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">Senses </spawn><p>${AddLinks(data.languages)}</p></div>`;
+            }
+            if (data.cr) {
+                textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">CR </spawn><p>${data.cr} (${crDictionary[data.cr].xp} XP; PB +${crDictionary[data.cr].prof_bonus})</p></div>`;
+            }
 
             leftColumn.innerHTML = textLeftColumn;
 
@@ -201,14 +258,14 @@ export default class CreatureStatBlockPlugin extends Plugin {
             // Append Actions
             let actionsHTML = "<h4>Actions</h4>";
             data.actions.forEach((action: { name: string; desc: string }) => {
-                actionsHTML += `<p><strong>${action.name}:</strong> ${action.desc}</p>`;
+                actionsHTML += `<p><strong>${AddLinks(action.name)}:</strong> ${AddLinks(action.desc)}</p>`;
             });
 
             // Append Bonus Actions
             if (data.bonus_actions) {
                 actionsHTML += "<h4>Bonus Actions</h4>";
                 data.bonus_actions.forEach((action: { name: string; desc: string }) => {
-                    actionsHTML += `<p><strong>${action.name}:</strong> ${action.desc}</p>`;
+                    actionsHTML += `<p><strong>${AddLinks(action.name)}:</strong> ${AddLinks(action.desc)}</p>`;
                 });
             }
 
@@ -245,4 +302,26 @@ export default class CreatureStatBlockPlugin extends Plugin {
     formatGear(gear: string[]): string {
         return gear.join(", ");
     }
+
+
 }
+
+
+function AddLinks(str_to_test: string) {
+    const replaced_text = str_to_test.replace(/\[\[(.*?)\]\]/g, (match, content) => {
+        let linkHTML = "";
+
+        if (content.includes("|")) {
+            const [link, display] = content.split("|");
+            linkHTML = `<a href="${link}" class="internal-link">${display}</a>`;
+        } else {
+            linkHTML = `<a href="${content}" class="internal-link">${content}</a>`;
+        }
+
+        return linkHTML;
+    });
+
+    return replaced_text
+}
+
+

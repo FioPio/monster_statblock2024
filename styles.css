@@ -42,7 +42,8 @@
 h4 {
     margin: 0 0 8px 0;
     font-size: 1rem;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #733721 !important;
+    color: #733721 !important;
 }
 
 .ac-initiative {
@@ -104,11 +105,4 @@ p {
     border: none;
     font-weight: bold;
     text-align: center;
-}
-
-.internal-link {
-    color: #0645ad;
-    /* Customize the color as needed */
-    text-decoration: underline;
-    cursor: pointer;
 }

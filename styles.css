@@ -33,11 +33,12 @@
     width: 100%;
 }
 
-/* Left and right columns */
+/* Left and right columns 
 .left-column,
 .right-column {
     width: 48%;
 }
+    */
 
 /* Headings */
 h4 {
@@ -111,18 +112,18 @@ p {
 
 .two-column-layout {
     column-count: 2;
-    /* Split content into two columns */
+
     column-gap: 20px;
-    /* Space between columns */
+
     break-inside: avoid;
-    /* Prevent content from breaking across columns */
+
     width: 100%;
-    /* Ensure it takes up the full width of the parent container */
+
     overflow: hidden;
-    /* Prevent overflow issues */
+
     padding: 10px;
-    /* Add padding to prevent text from touching the edges */
+
     box-sizing: border-box;
-    /* Include padding and border in the element's total width and height */
+
     display: block;
 }

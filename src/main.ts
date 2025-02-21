@@ -287,7 +287,7 @@ export default class CreatureStatBlockPlugin extends Plugin {
             el.replaceWith(outerContainer);
 
             // Debug: Log the generated HTML
-            console.log("Generated HTML:", outerContainer.outerHTML);
+            //console.log("Generated HTML:", outerContainer.outerHTML);
         } catch (error) {
             console.error("Error rendering stat block:", error);
         }

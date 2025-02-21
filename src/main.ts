@@ -148,7 +148,7 @@ export default class CreatureStatBlockPlugin extends Plugin {
             // Left Column (Basic Stats)
             const leftColumn = document.createElement("div");
             leftColumn.classList.add("left-column");
-            var textLeftColumn = "";
+            var textLeftColumn = `<div  class="two-column-layout">`;
             // Data Ceatre and alignment
             if (data.creature_type) {
                 textLeftColumn += `<div><span class="creature-type">${data.creature_type}`;
@@ -249,31 +249,33 @@ export default class CreatureStatBlockPlugin extends Plugin {
                 textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">CR </spawn><p>${data.cr} (${crDictionary[data.cr].xp} XP; PB +${crDictionary[data.cr].prof_bonus})</p></div>`;
             }
 
-            leftColumn.innerHTML = textLeftColumn;
 
-            // Right Column (Actions)
+            /*/ Right Column (Actions)
             const rightColumn = document.createElement("div");
             rightColumn.classList.add("right-column");
+            */
 
             // Append Actions
-            let actionsHTML = "<h4>Actions</h4>";
+            textLeftColumn += "<h4>Actions</h4>";
             data.actions.forEach((action: { name: string; desc: string }) => {
-                actionsHTML += `<p><strong>${AddLinks(action.name)}:</strong> ${AddLinks(action.desc)}</p>`;
+                textLeftColumn += `<p><strong>${AddLinks(action.name)}:</strong> ${AddLinks(action.desc)}</p>`;
             });
 
             // Append Bonus Actions
             if (data.bonus_actions) {
-                actionsHTML += "<h4>Bonus Actions</h4>";
+                textLeftColumn += "<h4>Bonus Actions</h4>";
                 data.bonus_actions.forEach((action: { name: string; desc: string }) => {
-                    actionsHTML += `<p><strong>${AddLinks(action.name)}:</strong> ${AddLinks(action.desc)}</p>`;
+                    textLeftColumn += `<p><strong>${AddLinks(action.name)}:</strong> ${AddLinks(action.desc)}</p>`;
                 });
             }
 
-            rightColumn.innerHTML = actionsHTML;
+            textLeftColumn += `</div>`;
 
+            //rightColumn.innerHTML = actionsHTML;
+            leftColumn.innerHTML = textLeftColumn;
             // Append columns to the content container
             contentContainer.appendChild(leftColumn);
-            contentContainer.appendChild(rightColumn);
+            //contentContainer.appendChild(rightColumn);
 
             // Append the content container to the inner container
             innerContainer.appendChild(contentContainer);

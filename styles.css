@@ -57,14 +57,14 @@ h4 {
     align-items: center;
 }
 
-creatureType {
+.creature-type {
     margin: 0 0 25px 0;
     font-size: 1rem;
     color: #434343;
     font-style: italic;
 }
 
-blackBoldText {
+.black-bold-text {
     margin: 0 6px 0 6px;
     font-size: 1rem;
     color: #000000;
@@ -78,35 +78,30 @@ p {
 }
 
 
-
-.stats-table th {
-    /* Light gray background for headers */
-    font-weight: bold;
-    /* Bold text for headers */
-    border: #f9f9f9;
+.stats-table td {
+    text-align: center;
 }
 
-
-.stats-table .column_1 {
+.stats-table .column_1,
+.stats-table .column_2 {
     background-color: #c9cba1;
     color: #000000;
+    border: 1px solid #f9f9f9;
+    text-align: center;
 }
 
-.stats-table .column_2 {
+.stats-table .column_3,
+.stats-table .column_4 {
     background-color: #887b68;
     color: #000000;
+    border: 1px solid #f9f9f9;
+    text-align: center;
 }
 
 
 .stats-table .title-th {
     background-color: transparent;
-    /* Make the background transparent */
     border: none;
-    /* Remove the border */
     font-weight: bold;
-    /* Keep the text bold */
     text-align: center;
-    /* Center the text */
-    padding: 8px;
-    /* Add padding for spacing */
 }

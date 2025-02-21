@@ -80,16 +80,16 @@ export default class CreatureStatBlockPlugin extends Plugin {
             var textLeftColumn = "";
             // Data Ceatre and alignment
             if (data.creature_type) {
-                textLeftColumn += `<div><creatureType>${data.creature_type}`;
+                textLeftColumn += `<div><span class="creature-type">${data.creature_type}`;
                 if (data.alignment) {
-                    textLeftColumn += `, ${data.alignment}</creatureType></div>`;
+                    textLeftColumn += `, ${data.alignment}</span></div>`;
                 }
                 else {
-                    textLeftColumn += `</creatureType></div>`;
+                    textLeftColumn += `</<span>></div>`;
                 }
             }
             else if (data.alignment) {
-                textLeftColumn += `<creatureType>${data.alignment}</creatureType></div>`;
+                textLeftColumn += `<span class="creature-type">${data.alignment}</spawn></div>`;
             }
 
             {
@@ -100,69 +100,70 @@ export default class CreatureStatBlockPlugin extends Plugin {
                     ac = data.ac;
                 }
                 const symbol_ini = initiative >= 0 ? "+" : "";
-                textLeftColumn += `<div class="ac-initiative"><blackBoldText>AC </blackBoldText><p>${ac}    </p><blackBoldText>Initiative </blackBoldText><p>${symbol_ini}${initiative} (${10 + initiative})</p></div>`;
+                textLeftColumn += `<div class="ac-initiative"><spawn class="black-bold-text">AC </spawn><p>${ac}    </p><spawn class="black-bold-text">Initiative </spawn><p>${symbol_ini}${initiative} (${10 + initiative})</p></div>`;
             }
             if (data.hp) {
-                textLeftColumn += `<div class="aligned-div"><blackBoldText>HP </blackBoldText><p>${data.hp}</p></div>`;
+                textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">HP </spawn><p>${data.hp}</p></div>`;
             }
             if (data.speed) {
-                textLeftColumn += `<div class="aligned-div"><blackBoldText>Speed </blackBoldText><p>${data.speed}</p></div>`;
+                textLeftColumn += `<div class="aligned-div"><spawn class="black-bold-text">Speed </spawn><p>${data.speed}</p></div>`;
             }
             // Table container
-            textLeftColumn += `<div><table class="stats-table">
+            // Table HTML
+            textLeftColumn += `
+<div>
+    <table class="stats-table">
         <thead>
             <tr>
                 <td class="title-th"> </td>
                 <td class="title-th"> </td>
-                <td class="title-th"><blackBoldText>MOD</blackBoldText></td>
-                <td class="title-th"><blackBoldText>SAVE</blackBoldText></td>
+                <td class="title-th"><spawn class="black-bold-text">MOD</spawn></td>
+                <td class="title-th"><spawn class="black-bold-text">SAVE</spawn></td>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="column_1"><blackBoldText>STR</blackBoldText></td>
-                <td class="column_1"> ${str_score}</td>
-                <td class="column_2"> ${score_modifiers[0] >= 0 ? "+" : ""}${score_modifiers[0]}</td>
-                <td class="column_2"> ${score_modifiers[0] >= 0 ? "+" : ""}${score_modifiers[0]}</td>
+                <td class="column_1"><spawn class="black-bold-text">STR</spawn></td>
+                <td class="column_2">${str_score}</td>
+                <td class="column_3">${score_modifiers[0] >= 0 ? "+" : ""}${score_modifiers[0]}</td>
+                <td class="column_4">${score_modifiers[0] >= 0 ? "+" : ""}${score_modifiers[0]}</td>
             </tr>
             <tr>
-                <td class="column_1"><blackBoldText>DEX</blackBoldText></td>
-                <td class="column_1"> ${dex_score}</td>
-                <td class="column_2"> ${score_modifiers[1] >= 0 ? "+" : ""}${score_modifiers[1]}</td>
-                <td class="column_2"> ${score_modifiers[1] >= 0 ? "+" : ""}${score_modifiers[1]}</td>
+                <td class="column_1"><spawn class="black-bold-text">DEX</spawn></td>
+                <td class="column_2">${dex_score}</td>
+                <td class="column_3">${score_modifiers[1] >= 0 ? "+" : ""}${score_modifiers[1]}</td>
+                <td class="column_4">${score_modifiers[1] >= 0 ? "+" : ""}${score_modifiers[1]}</td>
             </tr>
             <tr>
-                <td class="column_1"><blackBoldText>CON</blackBoldText></td>
-                <td class="column_1"> ${con_score}</td>
-                <td class="column_2"> ${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
-                <td class="column_2"> ${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
+                <td class="column_1"><spawn class="black-bold-text">CON</spawn></td>
+                <td class="column_2">${con_score}</td>
+                <td class="column_3">${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
+                <td class="column_4">${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
             </tr>
             <tr>
-                <td class="column_1"><blackBoldText>INT</blackBoldText></td>
-                <td class="column_1"> ${int_score}</td>
-                <td class="column_2"> ${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
-                <td class="column_2"> ${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
+                <td class="column_1"><spawn class="black-bold-text">INT</spawn></td>
+                <td class="column_2">${int_score}</td>
+                <td class="column_3">${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
+                <td class="column_4">${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
             </tr>
             <tr>
-                <td class="column_1"><blackBoldText>WIS</blackBoldText></td>
-                <td class="column_1"> ${dex_score}</td>
-                <td class="column_2"> ${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
-                <td class="column_2"> ${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
+                <td class="column_1"><spawn class="black-bold-text">WIS</spawn></td>
+                <td class="column_2">${wis_score}</td>
+                <td class="column_3">${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
+                <td class="column_4">${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
             </tr>
             <tr>
-                <td class="column_1"><blackBoldText>CHA</blackBoldText></td>
-                <td class="column_1"> ${con_score}</td>
-                <td class="column_2"> ${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
-                <td class="column_2"> ${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
+                <td class="column_1"><spawn class="black-bold-text">CHA</spawn></td>
+                <td class="column_2">${cha_score}</td>
+                <td class="column_3">${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
+                <td class="column_4">${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
             </tr>
         </tbody>
     </table>
-</div>
-`;
+</div>`;
 
             // Append all the basic stats
             textLeftColumn += `
-        <h4>Scores</h4><p>${data.scores.join(", ")}</p>
         <h4>Skills</h4><p>${this.formatSkills(data.skills)}</p>
         <h4>Gear</h4><p>${this.formatGear(data.gear)}</p>
         <h4>Senses</h4><p>${data.senses}</p>

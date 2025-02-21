@@ -8,6 +8,7 @@ interface StatBlockData {
     ac: number;
     speed: string;
     scores: number[];
+    saves: string[];
     skills: { [key: string]: number }[];
     gear: string[];
     senses: string;
@@ -54,6 +55,26 @@ export default class CreatureStatBlockPlugin extends Plugin {
                 data.scores ?
                     data.scores.map((num) => Math.trunc((num - 10) / 2)) :
                     [0, 0, 0, 0, 0, 0];
+
+            var saves = [0, 0, 0, 0, 0, 0];
+            if (data.saves.includes("str")) {
+                saves[0] = prof_mod;
+            }
+            if (data.saves.includes("dex")) {
+                saves[1] = prof_mod;
+            }
+            if (data.saves.includes("con")) {
+                saves[2] = prof_mod;
+            }
+            if (data.saves.includes("int")) {
+                saves[3] = prof_mod;
+            }
+            if (data.saves.includes("wis")) {
+                saves[4] = prof_mod;
+            }
+            if (data.saves.includes("cha")) {
+                saves[5] = prof_mod;
+            }
 
             // Create the outer container
             const outerContainer = document.createElement("div");
@@ -126,37 +147,37 @@ export default class CreatureStatBlockPlugin extends Plugin {
                 <td class="column_1"><spawn class="black-bold-text">STR</spawn></td>
                 <td class="column_2">${str_score}</td>
                 <td class="column_3">${score_modifiers[0] >= 0 ? "+" : ""}${score_modifiers[0]}</td>
-                <td class="column_4">${score_modifiers[0] >= 0 ? "+" : ""}${score_modifiers[0]}</td>
+                <td class="column_4">${score_modifiers[0] + saves[0] >= 0 ? "+" : ""}${score_modifiers[0] + saves[0]}</td>
             </tr>
             <tr>
                 <td class="column_1"><spawn class="black-bold-text">DEX</spawn></td>
                 <td class="column_2">${dex_score}</td>
                 <td class="column_3">${score_modifiers[1] >= 0 ? "+" : ""}${score_modifiers[1]}</td>
-                <td class="column_4">${score_modifiers[1] >= 0 ? "+" : ""}${score_modifiers[1]}</td>
+                <td class="column_4">${score_modifiers[1] + saves[1] >= 0 ? "+" : ""}${score_modifiers[1] + saves[1]}</td>
             </tr>
             <tr>
                 <td class="column_1"><spawn class="black-bold-text">CON</spawn></td>
                 <td class="column_2">${con_score}</td>
                 <td class="column_3">${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
-                <td class="column_4">${score_modifiers[2] >= 0 ? "+" : ""}${score_modifiers[2]}</td>
+                <td class="column_4">${score_modifiers[2] + saves[2] >= 0 ? "+" : ""}${score_modifiers[2] + saves[2]}</td>
             </tr>
             <tr>
                 <td class="column_1"><spawn class="black-bold-text">INT</spawn></td>
                 <td class="column_2">${int_score}</td>
                 <td class="column_3">${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
-                <td class="column_4">${score_modifiers[3] >= 0 ? "+" : ""}${score_modifiers[3]}</td>
+                <td class="column_4">${score_modifiers[3] + saves[3] >= 0 ? "+" : ""}${score_modifiers[3] + saves[3]}</td>
             </tr>
             <tr>
                 <td class="column_1"><spawn class="black-bold-text">WIS</spawn></td>
                 <td class="column_2">${wis_score}</td>
                 <td class="column_3">${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
-                <td class="column_4">${score_modifiers[4] >= 0 ? "+" : ""}${score_modifiers[4]}</td>
+                <td class="column_4">${score_modifiers[4] + saves[4] >= 0 ? "+" : ""}${score_modifiers[4] + saves[4]}</td>
             </tr>
             <tr>
                 <td class="column_1"><spawn class="black-bold-text">CHA</spawn></td>
                 <td class="column_2">${cha_score}</td>
                 <td class="column_3">${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
-                <td class="column_4">${score_modifiers[5] >= 0 ? "+" : ""}${score_modifiers[5]}</td>
+                <td class="column_4">${score_modifiers[5] + saves[5] >= 0 ? "+" : ""}${score_modifiers[5] + saves[5]}</td>
             </tr>
         </tbody>
     </table>

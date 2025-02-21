@@ -57,7 +57,8 @@ h4 {
 .aligned-div {
     display: flex;
     margin-top: -20px;
-    align-items: center;
+    align-items: baseline;
+
 }
 
 .creature-type {

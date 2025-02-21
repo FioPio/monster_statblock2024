@@ -10,7 +10,7 @@ interface StatBlockData {
     scores: number[];
     saves: string[];
     skills: { [key: string]: number }[];
-    gear: string[];
+    gear: { [key: string]: number }[];
     senses: string;
     languages: string;
     cr: string;
@@ -301,10 +301,9 @@ export default class CreatureStatBlockPlugin extends Plugin {
         return skills.map((skill: { [key: string]: number }) => `${Object.keys(skill)[0]}: ${Object.values(skill)[0]}`).join(", ");
     }
 
-    formatGear(gear: string[]): string {
-        return gear.join(", ");
+    formatGear(gear: { [key: string]: number }[]): string {
+        return gear.map((gear: { [key: string]: number }) => `${Object.keys(gear)[0]}: ${Object.values(gear)[0]}`).join(", ");
     }
-
 
 }
 

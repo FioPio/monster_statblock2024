@@ -193,7 +193,7 @@ export default class CreatureStatBlockPlugin extends Plugin {
                 textColumns += `<div class="aligned-div"><spawn class="black-bold-text">Senses </spawn><p>${AddLinks(data.senses)}</p></div>`;
             }
             if (data.languages) {
-                textColumns += `<div class="aligned-div"><spawn class="black-bold-text">Senses </spawn><p>${AddLinks(data.languages)}</p></div>`;
+                textColumns += `<div class="aligned-div"><spawn class="black-bold-text">Languages </spawn><p>${AddLinks(data.languages)}</p></div>`;
             }
             if (data.cr) {
                 textColumns += `<div class="aligned-div"><spawn class="black-bold-text">CR </spawn><p>${data.cr} (${cr_dictionary[data.cr].xp} XP; PB +${cr_dictionary[data.cr].prof_bonus})</p></div>`;
@@ -273,7 +273,3 @@ export default class CreatureStatBlockPlugin extends Plugin {
     }
 
 }
-
-
-
-
